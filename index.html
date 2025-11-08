@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniTech - Smart Web Solutions Agency</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        /* --- YOUR NEW COLOR PALETTE --- */
+        :root {
+            --background: #0A0F1F;
+            --primary-accent: #00E0FF;    /* Neon Cyan */
+            --secondary-accent: #8B5CF6;  /* Violet Glow */
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0A0;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden; 
+        }
+
+        .font-space {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* --- UPDATED CTA BUTTON --- */
+        .cta-btn {
+            background-color: var(--primary-accent);
+            color: var(--background); /* Dark text for contrast on neon */
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .cta-btn:hover {
+            background-color: var(--secondary-accent);
+            color: var(--text-primary); /* White text on violet */
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+
+        /* --- UPDATED SERVICE CARD --- */
+        .service-card {
+            background-color: #0F172A; /* Slightly lighter than pure bg */
+            border: 1px solid #334155; /* slate-700 */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border-bottom: 4px solid transparent; 
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+            border-color: var(--primary-accent);
+        }
+
+        .service-card.teal-hover:hover {
+            border-color: var(--secondary-accent);
+        }
+
+        /* --- UPDATED SLIDING BLOCKS --- */
+        .sliding-track {
+            display: flex;
+            width: fit-content;
+            animation: slide 40s linear infinite;
+        }
+
+        .sliding-track.reverse {
+            animation-direction: reverse;
+            animation-duration: 35s;
+        }
+
+        .slide-item {
+            padding: 1rem 2rem;
+            margin: 0 0.5rem;
+            background-color: var(--primary-accent);
+            color: var(--background); /* Dark text for contrast */
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            border-radius: 0.5rem;
+            white-space: nowrap;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        
+        .slide-item.alt {
+            background-color: #0F172A; /* slate-900 */
+            color: var(--text-primary);
+        }
+        
+        .slide-item.teal {
+            background-color: var(--secondary-accent);
+            color: var(--text-primary);
+        }
+
+        @keyframes slide {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        
+        @keyframes throb {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .animate-throb {
+            animation: throb 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        /* --- UPDATED FAB PULSE --- */
+        @keyframes pulse-fab {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 224, 255, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(0, 224, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 224, 255, 0);
+            }
+        }
+        .animate-pulse-fab {
+            animation: pulse-fab 2s infinite;
+        }
+
+        /* --- IMPROVED HEADER STYLES --- */
+        #main-header {
+            background-color: rgba(10, 15, 31, 0.95); /* Semi-transparent background */
+            backdrop-filter: blur(10px); /* Glass effect */
+            border-bottom: 1px solid rgba(30, 41, 59, 0.5); /* slate-800 with transparency */
+            transition: all 0.3s ease;
+        }
+
+        #main-header.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 224, 255, 0.1);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-accent);
+        }
+
+        /* --- IMPROVED FOOTER STYLES --- */
+        footer {
+            background: linear-gradient(to top, #0A0F1F, #0F172A);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--primary-accent), transparent);
+        }
+
+        .footer-col h3 {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-accent);
+        }
+
+        .footer-link {
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-accent);
+            transform: translateX(5px);
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(30, 41, 59, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 224, 255, 0.3);
+        }
+
+        .footer-bottom {
+            position: relative;
+        }
+
+        .footer-bottom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(30, 41, 59, 0.5), transparent);
+        }
+
+        /* --- UPDATED SERVICE DETAIL CARD --- */
+        .service-detail-card {
+            background-color: #0F172A; /* slate-900 */
+            border: 1px solid #334155; /* slate-700 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-left-color 0.3s ease;
+            border-left: 4px solid transparent; 
+        }
+        .service-detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border-left-color: var(--primary-accent);
+        }
+
+        .service-detail-card.teal-hover:hover {
+            border-left-color: var(--secondary-accent);
+        }
+        
+        /* Back button animation */
+        .back-btn-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Background Glow Animation */
+        @keyframes pulse-bg {
+            0% {
+                box-shadow: inset 0 0 0 0 rgba(0, 224, 255, 0.2); 
+            }
+            70% {
+                box-shadow: inset 0 0 0 40px rgba(0, 224, 255, 0); 
+            }
+            100% {
+                box-shadow: inset 0 0 0 0 rgba(0, 224, 255, 0); 
+            }
+        }
+        .animate-pulse-bg {
+            animation: pulse-bg 3s infinite;
+        }
+
+        /* Styles for the GSAP Horizontal Scroll Section */
+        .pin-container {
+             height: 100vh;
+             width: 100%;
+             overflow: hidden; 
+        }
+        .scroll-track {
+             display: flex;
+             width: max-content; 
+             height: 100%; 
+        }
+        .scroll-panel {
+             width: 100vw; 
+             height: 100%;
+             flex-shrink: 0;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             padding: 2rem;
+        }
+
+        /* --- NEW: PULSE/SONAR EFFECT --- */
+        .pulse-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px; /* Max width of pulse */
+            height: 500px;
+            z-index: 0; /* Behind the text */
+        }
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border: 2px solid var(--primary-accent);
+            border-radius: 50%;
+            animation: pulse-animate 4s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+            opacity: 0;
+        }
+        .pulse-ring:nth-child(2) {
+            animation-delay: 1.3s;
+        }
+        .pulse-ring:nth-child(3) {
+            animation-delay: 2.6s;
+        }
+        @keyframes pulse-animate {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 0.5;
+            }
+            100% {
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+            }
+        }
+        /* --- END OF NEW PULSE EFFECT --- */
+
+        /* --- IMPROVED MOBILE MENU --- */
+        #mobile-menu {
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu-link {
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-menu-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(to right, rgba(0, 224, 255, 0.1), transparent);
+            transition: width 0.3s ease;
+        }
+
+        .mobile-menu-link:hover::before {
+            width: 100%;
+        }
+
+        .mobile-menu-link:hover {
+            color: var(--primary-accent);
+            transform: translateX(5px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 767px) {
+            .sliding-blocks-wrapper {
+                transform: rotate(0) scale(1);
+            }
+            .slide-item {
+                font-size: 1rem;
+                padding: 0.75rem 1.5rem;
+            }
+            .scroll-panel {
+                 padding: 1rem; 
+            }
+            .scroll-panel h2 {
+                 font-size: 2.5rem; 
+            }
+             .scroll-panel h3 {
+                 font-size: 1.5rem; 
+            }
+             .scroll-panel p {
+                 font-size: 1rem; 
+            }
+             .scroll-panel i { 
+                 width: 4rem; 
+                 height: 4rem;
+            }
+            /* Adjust pulse container for mobile */
+            .pulse-container {
+                width: 300px;
+                height: 300px;
+            }
+            
+            /* Mobile footer adjustments */
+            .footer-col {
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+            
+            .footer-col h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .social-icons-container {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#0A0F1F]">
+    
+    <header id="main-header" class="fixed top-0 left-0 w-full z-50 p-4 shadow-lg transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" id="home-link" class="flex items-center space-x-3">
+                <img src="logop.png" alt="MiniTech Logo" class="h-16">
+            </a>
+            <nav class="hidden md:flex space-x-8 items-center">
+                <div class="relative group">
+                    <button class="nav-link text-white hover:text-gray-300 transition-colors flex items-center">
+                        Services <i data-feather="chevron-down" class="w-4 h-4 ml-1"></i>
+                    </button>
+                    <div class="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-56 hidden group-hover:block">
+                        <div class="bg-[#0F172A] rounded-md shadow-lg p-2 z-10 ring-1 ring-slate-700 backdrop-blur-sm">
+                            <a href="#" id="nav-dm-link" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white rounded-md transition-colors">Digital Marketing</a>
+                            <a href="#" id="nav-web-link" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white rounded-md transition-colors">Web Development</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" id="nav-team-link" class="nav-link text-white">Our Team</a>
+                <a href="#contact" class="cta-btn text-white font-bold py-2 px-4 rounded-lg transition-all duration-300">Contact Us</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-white bg-slate-800 p-2 rounded-lg hover:bg-slate-700 transition-colors">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+    </header>
+    
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 z-40 hidden"></div>
+    
+    <div id="mobile-menu" class="fixed top-0 right-0 w-4/5 max-w-sm h-full z-50 transform translate-x-full transition-transform duration-300 ease-in-out border-l border-slate-700">
+        <div class="p-5 flex flex-col h-full">
+            <div class="flex justify-between items-center mb-10">
+                <a href="#" id="mobile-home-link" class="flex items-center space-x-2">
+                    <img src="logop.png" alt="MiniTech Logo" class="h-12">
+                    <span class="text-white font-space font-bold text-lg">MiniTech</span>
+                </a>
+                <button id="mobile-menu-close-button" class="bg-slate-800 p-2 rounded-lg hover:bg-slate-700 transition-colors">
+                    <i data-feather="x" class="text-white w-7 h-7"></i>
+                </button>
+            </div>
+            <div class="flex flex-col space-y-4">
+                <h3 class="text-gray-400 font-bold tracking-widest uppercase text-sm px-4">Services</h3>
+                <a href="#" id="mobile-nav-dm-link" class="mobile-menu-link text-white text-lg font-bold px-4 py-2 rounded-md">Digital Marketing</a>
+                <a href="#" id="mobile-nav-web-link" class="mobile-menu-link text-white text-lg font-bold px-4 py-2 rounded-md">Web Development</a>
+                <h3 class="text-gray-400 font-bold tracking-widest uppercase text-sm px-4 mt-6">Company</h3>
+                <a href="#" id="mobile-nav-team-link" class="mobile-menu-link text-white text-lg font-bold px-4 py-2 rounded-md">Our Team</a>
+            </div>
+            <div class="mt-auto">
+                <a href="#contact" class="mobile-menu-link cta-btn w-full text-center block px-4 py-3 rounded-md">Contact Us</a>
+            </div>
+        </div>
+    </div>
+    
+    <div id="main-content">
+        <main class="pt-[88px]"> <section id="hero" class="min-h-screen w-full relative flex items-center justify-center text-center -mt-[88px]">
+                <div class="absolute inset-0 z-0 overflow-hidden">
+                    <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                        <source src="vodeo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="absolute inset-0 bg-black/60"></div>
+                </div>
+                <div class="relative z-10 p-8">
+                    <div class="max-w-3xl mx-auto">
+                        <h1 class="hero-el text-4xl md:text-5xl lg:text-6xl font-bold font-space text-white mb-4">
+                            Transforming Ideas into
+                            <span class="block bg-clip-text text-transparent bg-gradient-to-r from-[#00E0FF] to-[#8B5CF6]">
+                                Digital Reality
+                            </span>
+                        </h1>
+                        <p class="hero-el text-lg md:text-xl mx-auto mb-8 text-[#A0A0A0]"> Websites, Apps, Marketing & Design – All in One Place
+                        </p>
+                        <a href="#contact" class="hero-el cta-btn inline-block font-bold py-3 px-8 rounded-lg text-lg">
+                            <span>Get Started</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="services" class="py-20 md:py-28 bg-[#0A0F1F]">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="section-title font-space text-4xl md:text-5xl font-bold text-white">Our Services</h2>
+                        <p class="text-lg text-[#A0A0A0] mt-4">Solutions designed to elevate your brand.</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto"> 
+                        <div id="digital-marketing-link" class="cursor-pointer block h-full">
+                            <div class="service-card relative flex flex-col items-center p-6 rounded-xl text-center h-full">
+                                <i data-feather="bar-chart-2" class="w-12 h-12 service-card-el" style="color: var(--primary-accent);"></i>
+                                <h3 class="text-xl font-bold font-space my-3 text-white service-card-el">Digital Marketing</h3>
+                                <p class="text-[#A0A0A0] text-sm mb-12 service-card-el">Strategy & performance ads.</p>
+                                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 service-card-el">
+                                    <span class="text-xs font-bold text-[#00E0FF] bg-sky-900/50 px-2 py-1 rounded-full animate-throb">VIEW DETAILS</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="web-development-link" class="cursor-pointer block h-full">
+                            <div class="service-card relative flex flex-col items-center p-6 rounded-xl text-center h-full teal-hover">
+                                <i data-feather="monitor" class="w-12 h-12 service-card-el" style="color: var(--secondary-accent);"></i>
+                                <h3 class="text-xl font-bold font-space my-3 text-white service-card-el">Web Development</h3>
+                                <p class="text-[#A0A0A0] text-sm mb-12 service-card-el">Modern, responsive websites.</p>
+                                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 service-card-el">
+                                    <span class="text-xs font-bold text-[#8B5CF6] bg-violet-900/50 px-2 py-1 rounded-full animate-throb">VIEW DETAILS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="py-20 md:py-28 bg-[#0F172A]">
+                <div class="container mx-auto px-4">
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="about-el text-center md:text-left">
+                            <h2 class="section-title font-space text-4xl md:text-5xl font-bold text-white mb-6">About Mini-Tech</h2>
+                            <p class="text-[#A0A0A0] mb-4 leading-relaxed">
+                                Founded in 2025, Mini-Tech was born from a passion for empowering startups, colleges, and growing businesses with high-quality, affordable digital solutions. We believe that a powerful online presence shouldn't be a luxury.
+                            </p>
+                            <p class="text-[#A0A0A0] mb-6 leading-relaxed">
+                                Our team of dedicated developers, designers, and marketers works collaboratively to transform your vision into a digital reality. We're not just a service provider; we're your partner in growth, committed to delivering results that matter.
+                            </p>
+                            <a href="#contact" class="cta-btn inline-block font-bold py-3 px-8 rounded-lg text-lg">
+                                <span>Work With Us</span>
+                            </a>
+                        </div>
+                        <div class="about-el">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" alt="Our Team Collaborating" class="rounded-2xl shadow-xl w-full h-full object-cover opacity-80">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 md:py-24 bg-[#0A0F1F] overflow-hidden">
+                <div class="sliding-blocks-wrapper relative w-full flex flex-col gap-4 md:-rotate-2 md:scale-110">
+                    <div class="sliding-track">
+                        <div class="slide-item">Digital Marketing</div>
+                        <div class="slide-item">Web Development</div>
+                        <div class="slide-item teal">UI/UX Design</div>
+                        <div class="slide-item">SEO & SMM</div>
+                        <div class="slide-item">Digital Marketing</div>
+                        <div class="slide-item">Web Development</div>
+                        <div class="slide-item teal">UI/UX Design</div>
+                        <div class="slide-item">SEO & SMM</div>
+                        <div class="slide-item">Digital Marketing</div>
+                        <div class="slide-item">Web Development</div>
+                    </div>
+                    <div class="sliding-track reverse">
+                        <div class="slide-item alt">Responsive Websites</div>
+                        <div class="slide-item alt">User Experience</div>
+                        <div class="slide-item alt">Brand Strategy</div>
+                        <div class="slide-item alt">Content Creation</div>
+                        <div class="slide-item alt">Responsive Websites</div>
+                        <div class="slide-item alt">User Experience</div>
+                        <div class="slide-item alt">Brand Strategy</div>
+                        <div class="slide-item alt">Content Creation</div>
+                        <div class="slide-item alt">Responsive Websites</div>
+                    </div>
+                    <div class="sliding-track">
+                        <div class="slide-item teal">Creative Solutions</div>
+                        <div class="slide-item teal">Performance Ads</div>
+                        <div class="slide-item teal">E-commerce</div>
+                        <div class="slide-item teal">Prototyping</div>
+                        <div class="slide-item teal">Growth Hacking</div>
+                        <div class="slide-item teal">Creative Solutions</div>
+                        <div class="slide-item teal">Performance Ads</div>
+                        <div class="slide-item teal">E-commerce</div>
+                        <div class="slide-item teal">Prototyping</div>
+                        <div class="slide-item teal">Growth Hacking</div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="horizontal-scroll" class="relative bg-[#0A0F1F]">
+                <div class="pin-container">
+                    <div class="scroll-track">
+        
+                        <div class="scroll-panel bg-[#0A0F1F] text-white animate-pulse-bg">
+                            <div class="text-center relative"> <div class="pulse-container">
+                                    <div class="pulse-ring"></div>
+                                    <div class="pulse-ring"></div>
+                                    <div class="pulse-ring"></div>
+                                </div>
+
+                                <h2 class="font-space text-5xl md:text-7xl font-bold text-[#00E0FF] relative z-10">
+                                    Why Choose Us?
+                                </h2>
+                            </div>
+                        </div>
+
+                        <div class="scroll-panel bg-[#0F172A] text-white">
+                            <div class="container mx-auto px-4 max-w-5xl w-full">
+                                <div class="text-center mb-10">
+                                    <h3 class="text-3xl md:text-4xl font-bold font-space mb-3 text-white">
+                                        Fast, Modern, Custom
+                                    </h3>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                                    <div class="bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col items-center text-center feature-card">
+                                        <i data-feather="fast-forward" class="w-12 h-12 text-[#00E0FF] mb-4"></i>
+                                        <h4 class="text-xl font-bold font-space mb-2 text-white">Fast & Reliable Delivery</h4>
+                                        <p class="text-[#A0A0A0] text-sm">Every project is delivered within the committed deadline — without compromising on quality.</p>
+                                    </div>
+                                    <div class="bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col items-center text-center feature-card">
+                                        <i data-feather="monitor" class="w-12 h-12 text-[#00E0FF] mb-4"></i>
+                                        <h4 class="text-xl font-bold font-space mb-2 text-white">Modern & Responsive Design</h4>
+                                        <p class="text-[#A0A0A0] text-sm">Our websites look perfect on every device, ensuring a smooth user experience.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="scroll-panel bg-[#0F172A] text-white">
+                            <div class="container mx-auto px-4 max-w-5xl w-full">
+                                <div class="text-center mb-10">
+                                    <h3 class="text-3xl md:text-4xl font-bold font-space mb-3 text-white">
+                                        Expertise & Solutions
+                                    </h3>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                                    <div class="bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col items-center text-center feature-card">
+                                        <i data-feather="settings" class="w-12 h-12 text-[#00E0FF] mb-4"></i>
+                                        <h4 class="text-xl font-bold font-space mb-2 text-white">Custom Solutions</h4>
+                                        <p class="text-[#A0A0A0] text-sm">Tailor-made websites and digital strategies that truly represent your brand.</p>
+                                    </div>
+                                    <div class="bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col items-center text-center feature-card">
+                                        <i data-feather="cpu" class="w-12 h-12 text-[#8B5CF6] mb-4"></i>
+                                        <h4 class="text-xl font-bold font-space mb-2 text-white">Creative & Technical Expertise</h4>
+                                        <p class="text-[#A0A0A0] text-sm">We combine innovative design thinking with solid technical skills to bring ideas to life.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="scroll-panel bg-[#0F172A] text-white">
+                            <div class="container mx-auto px-4 max-w-5xl w-full">
+                                <div class="text-center mb-10">
+                                    <h3 class="text-3xl md:text-4xl font-bold font-space mb-3 text-white">
+                                        Client-First Focus
+                                    </h3>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                                    <div class="bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col items-center text-center feature-card">
+                                        <i data-feather="life-buoy" class="w-12 h-12 text-[#8B5CF6] mb-4"></i>
+                                        <h4 class="text-xl font-bold font-space mb-2 text-white">Long-Term Support</h4>
+                                        <p class="text-[#A0A0A0] text-sm">We provide updates, improvements, and technical assistance whenever you need it.</p>
+                                    </div>
+                                    <div class="bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col items-center text-center feature-card">
+                                        <i data-feather="thumbs-up" class="w-12 h-12 text-[#8B5CF6] mb-4"></i>
+                                        <h4 class="text-xl font-bold font-space mb-2 text-white">Client Satisfaction First</h4>
+                                        <p class="text-[#A0A0A0] text-sm">We focus on transparency, communication, and results — every single time.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            
+            <section id="contact" class="py-20 md:py-28 bg-[#0A0F1F] relative">
+                <div class="absolute inset-0">
+                    <img src="https://images.unsplash.com/photo-1528747045269-390a33c2a665?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-5">
+                </div>
+                <div class="container mx-auto px-4 relative">
+                    <div class="text-center mb-16">
+                        <h2 class="section-title font-space text-4xl md:text-5xl font-bold text-white">Let's Build Together</h2>
+                        <p class="text-lg text-[#A0A0A0] mt-4 max-w-2xl mx-auto">Have a project in mind? We'd love to hear about it.</p>
+                    </div>
+                    <div class="max-w-3xl mx-auto contact-form-container">
+                        <form id="contact-form" class="bg-[#0F172A] p-8 md:p-12 rounded-2xl space-y-6 border border-slate-700 shadow-xl">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <input type="text" name="name" placeholder="Your Name" required class="form-el w-full bg-slate-800 border-2 border-slate-700 focus:border-[#00E0FF] focus:ring-[#00E0FF] p-3 text-white outline-none transition-colors rounded-lg">
+                                <input type="email" name="email" placeholder="Your Email" required class="form-el w-full bg-slate-800 border-2 border-slate-700 focus:border-[#00E0FF] focus:ring-[#00E0FF] p-3 text-white outline-none transition-colors rounded-lg">
+                            </div>
+                            <input type="tel" name="phone" placeholder="Your Phone (10 digits)" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" class="form-el w-full bg-slate-800 border-2 border-slate-700 focus:border-[#00E0FF] focus:ring-[#00E0FF] p-3 text-white outline-none transition-colors rounded-lg">
+                            <div>
+                                <select id="service-interest" name="service" required class="form-el w-full bg-slate-800 border-2 border-slate-700 focus:border-[#00E0FF] focus:ring-[#00E0FF] p-3 text-white outline-none transition-colors rounded-lg">
+                                    <option value="" disabled selected>Select a Service</option>
+                                    <option value="Digital Marketing">Digital Marketing</option>
+                                    <option value="Web Development">Web Development</option>
+                                    <option value="General Inquiry">General Inquiry</option>
+                                </select>
+                            </div>
+                            <textarea name="message" placeholder="Tell us about your project..." rows="5" required class="form-el w-full bg-slate-800 border-2 border-slate-700 focus:border-[#00E0FF] focus:ring-[#00E0FF] p-3 text-white outline-none transition-colors resize-none rounded-lg"></textarea>
+                            <div class="text-center pt-4">
+                                <button type="submit" class="form-el cta-btn font-bold py-3 px-10 rounded-lg text-lg">
+                                    <span>Submit Message</span>
+                                </button>
+                            </div>
+                        </form>
+                        <div id="form-message" class="text-center mt-6 text-lg text-[#00E0FF]"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <div id="digital-marketing-page" class="hidden">
+        <main class="pt-[88px]"> <button class="back-to-main-btn fixed top-24 left-4 z-50 cta-btn rounded-full p-3 shadow-lg hover:scale-110 transition-transform back-btn-animation">
+                <i data-feather="arrow-left" class="text-black"></i>
+            </button>
+            <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 text-white overflow-hidden flex items-center justify-center text-center">
+                <div class="absolute inset-0 z-0">
+                    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1974&auto=format&fit=crop" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/70"></div>
+                </div>
+                <div class="container mx-auto px-4 relative z-10">
+                    <div class="max-w-3xl mx-auto">
+                        <h1 class="page-el text-4xl md:text-5xl lg:text-6xl font-bold font-space mb-4">
+                            Digital Marketing Services
+                        </h1>
+                        <p class="page-el text-lg md:text-xl mt-4 text-[#A0A0A0]">
+                            A complete suite of data-driven services to grow your brand's online presence.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section class="py-20 md:py-28 bg-[#0A0F1F]">
+                <div class="container mx-auto px-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="service-detail-card p-8 rounded-lg page-el">
+                            <i data-feather="edit" class="w-10 h-10 text-[#00E0FF] mb-4"></i>
+                            <h3 class="text-2xl font-bold font-space mb-3 text-white">Content Creation</h3>
+                            <p class="text-[#A0A0A0]">Engaging blog posts, articles, and website copy that resonates with your audience and builds authority.</p>
+                        </div>
+                        <div class="service-detail-card p-8 rounded-lg page-el teal-hover">
+                            <i data-feather="users" class="w-10 h-10 mb-4" style="color: var(--secondary-accent);"></i>
+                            <h3 class="text-2xl font-bold font-space mb-3 text-white">UGC Ads Creation</h3>
+                            <p class="text-[#A0A0A0]">Authentic User-Generated Content style ads that build trust and drive conversions on social platforms.</p>
+                        </div>
+                        <div class="service-detail-card p-8 rounded-lg page-el">
+                            <i data-feather="video" class="w-10 h-10 text-[#00E0FF] mb-4"></i>
+                            <h3 class="text-2xl font-bold font-space mb-3 text-white">Video Editing</h3>
+                            <p class="text-[#A0A0A0]">Professional editing for ads, reels, YouTube content, and promos to capture viewer attention.</p>
+                        </div>
+                        <div class="service-detail-card p-8 rounded-lg page-el teal-hover">
+                            <i data-feather="image" class="w-10 h-10 mb-4" style="color: var(--secondary-accent);"></i>
+                            <h3 class="text-2xl font-bold font-space mb-3 text-white">Poster & Banner Design</h3>
+                            <p class="text-[#A0A0A0]">Eye-catching social media creatives and ad posters designed to stop the scroll and deliver your message.</p>
+                        </div>
+                        <div class="service-detail-card p-8 rounded-lg page-el">
+                            <i data-feather="share-2" class="w-10 h-10 text-[#00E0FF] mb-4"></i>
+                            <h3 class="text-2xl font-bold font-space mb-3 text-white">Social Media Marketing (SMM)</h3>
+                            <p class="text-[#A0A0A0]">Comprehensive strategies to manage and grow your community across all relevant social platforms.</p>
+                        </div>
+                        <div class="service-detail-card p-8 rounded-lg page-el">
+                            <i data-feather="youtube" class="w-10 h-10 text-[#00E0FF] mb-4"></i>
+                            <h3 class="text-2xl font-bold font-space mb-3 text-white">YouTube Marketing</h3>
+                            <p class="text-[#A0A0A0]">Video ad campaigns and channel optimization to increase views, subscribers, and engagement.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="contact-cta" class="bg-[#0F172A]">
+                <div class="container mx-auto px-4 py-20 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold font-space text-white">Ready to Grow Your Brand?</h2>
+                    <p class="text-lg text-[#A0A0A0] mt-4 mb-8">Let's discuss how our digital marketing services can help you achieve your goals.</p>
+                    <a href="#" class="cta-back-to-contact cta-btn inline-block font-bold py-3 px-8 rounded-lg text-lg">
+                        Get a Free Quote
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <div id="web-development-page" class="hidden">
+        <main class="pt-[88px]"> <button class="back-to-main-btn fixed top-24 left-4 z-50 cta-btn rounded-full p-3 shadow-lg hover:scale-110 transition-transform back-btn-animation">
+                <i data-feather="arrow-left" class="text-black"></i>
+            </button>
+            <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 text-white overflow-hidden flex items-center justify-center text-center">
+                <div class="absolute inset-0 z-0">
+                    <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/70"></div>
+                </div>
+                <div class="container mx-auto px-4 relative z-10">
+                    <div class="max-w-3xl mx-auto">
+                        <h1 class="page-el text-4xl md:text-5xl lg:text-6xl font-bold font-space mb-4">
+                            Web Development Solutions
+                        </h1>
+                        <p class="page-el text-lg md:text-xl mt-4 text-[#A0A0A0]">
+                            Crafting high-performance, responsive, and scalable websites to drive your business forward.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section class="py-20 md:py-28 bg-[#0A0F1F]">
+                <div class="container mx-auto px-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="service-detail-card p-8 rounded-lg page-el">
+                            <i data-feather="layout" class="w-10 h-10 text-[#00E0FF] mb-4"></i>
+                            <h3 class="text-2xl font-bold font-space mb-3 text-white">Frontend Development</h3>
+                            <p class="text-[#A0A0A0]">Beautiful and intuitive user interfaces built with modern technologies like HTML5, CSS3, JavaScript, and frameworks like React or Vue.</p>
+                        </div>
+                        <div class="service-detail-card p-8 rounded-lg page-el teal-hover">
+                            <i data-feather="server" class="w-10 h-10 mb-4" style="color: var(--secondary-accent);"></i>
+                            <h3 class="text-2xl font-bold font-space mb-3 text-white">Backend Development</h3>
+                            <p class="text-[#A0A0A0]">Robust server-side logic, databases, and APIs using technologies like Node.js, Python, or PHP to power your application.</p>
+                        </div>
+                        <div class="service-detail-card p-8 rounded-lg page-el">
+                            <i data-feather="layers" class="w-10 h-10 text-[#00E0FF] mb-4"></i>
+                            <h3 class="text-2xl font-bold font-space mb-3 text-white">Full-Stack Development</h3>
+                            <p class="text-[#A0A0A0]">Comprehensive development covering both the client and server side to deliver a complete, seamless web solution.</p>
+                        </div>
+                        <div class="service-detail-card p-8 rounded-lg page-el teal-hover">
+                            <i data-feather="shopping-cart" class="w-10 h-10 mb-4" style="color: var(--secondary-accent);"></i>
+                            <h3 class="text-2xl font-bold font-space mb-3 text-white">E-commerce Solutions</h3>
+                            <p class="text-[#A0A0A0]">Custom online stores and shopping platforms with secure payment gateways, inventory management, and more.</p>
+                        </div>
+                        <div class="service-detail-card p-8 rounded-lg page-el">
+                            <i data-feather="database" class="w-10 h-10 text-[#00E0FF] mb-4"></i>
+                            <h3 class="text-2xl font-bold font-space mb-3 text-white">CMS Development</h3>
+                            <p class="text-[#A0A0A0]">Easy-to-manage websites using Content Management Systems like WordPress, allowing you to update content effortlessly.</p>
+                        </div>
+                        <div class="service-detail-card p-8 rounded-lg page-el teal-hover">
+                            <i data-feather="tool" class="w-10 h-10 mb-4" style="color: var(--secondary-accent);"></i>
+                            <h3 class="text-2xl font-bold font-space mb-3 text-white">Maintenance & Support</h3>
+                            <p class="text-[#A0A0A0]">Ongoing support, security updates, and performance optimization to ensure your website runs smoothly and securely.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="contact-cta-web" class="bg-[#0F172A]">
+                <div class="container mx-auto px-4 py-20 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold font-space text-white">Have a Web Project in Mind?</h2>
+                    <p class="text-lg text-[#A0A0A0] mt-4 mb-8">Let's turn your vision into a stunning, high-performing website.</p>
+                    <a href="#" class="cta-back-to-contact cta-btn inline-block font-bold py-3 px-8 rounded-lg text-lg">
+                        Get a Free Quote
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="team-page" class="hidden">
+        <main class="pt-[88px]"> <button class="back-to-main-btn fixed top-24 left-4 z-50 cta-btn rounded-full p-3 shadow-lg hover:scale-110 transition-transform back-btn-animation">
+                <i data-feather="arrow-left" class="text-black"></i>
+            </button>
+            <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 text-white overflow-hidden flex items-center justify-center text-center">
+                <div class="absolute inset-0 z-0">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/70"></div>
+                </div>
+                <div class="container mx-auto px-4 relative z-10">
+                    <div class="max-w-3xl mx-auto">
+                        <h1 class="page-el text-4xl md:text-5xl lg:text-6xl font-bold font-space mb-4">
+                            Meet Our Team
+                        </h1>
+                        <p class="page-el text-lg md:text-xl mt-4 text-[#A0A0A0]">
+                            The passionate minds behind Mini-Tech's success.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 md:py-28 bg-[#0A0F1F]">
+                <div class="container mx-auto px-4">
+                    
+                    <div class="max-w-5xl mx-auto mb-20 md:mb-28">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center">
+                            <div class="page-el md:col-span-1">
+                                <img src="httpsE://Founders/Snapchat-1114979262.jpg" alt="Founder of MiniTech" class="rounded-xl shadow-2xl w-full h-auto object-cover aspect-square">
+                            </div>
+                            <div class="page-el md:col-span-2 text-center md:text-left">
+                                <h2 class="text-base font-bold uppercase text-[#00E0FF] tracking-wider">Founder & CEO</h2>
+                                <h3 class="text-3xl md:text-4xl font-bold font-space text-white mt-2 mb-4">Mohd Sameer</h3>
+                                <p class="text-[#A0A0A0] leading-relaxed mb-4">
+                                    With a vision to make high-end digital services accessible to all, Sameer founded Mini-Tech. His passion for technology and entrepreneurship drives the company's innovative spirit and client-first approach.
+                                </p>
+                                <p class="text-[#A0A0A0] leading-relaxed italic">
+                                    "We're not just building websites or running ad campaigns; we're building partnerships. Your success is our ultimate metric."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mb-16">
+                        <h2 class="page-el text-3xl md:text-4xl font-bold font-space text-white">Our Core Team</h2>
+                        <p class="page-el text-lg text-[#A0A0A0] mt-4 max-w-2xl mx-auto">The experts who bring your projects to life.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        
+                        <div class="page-el bg-slate-800 p-6 rounded-lg shadow-lg text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:shadow-[#00E0FF]/20">
+                            <img src="https://via.placeholder.com/150" alt="Team Member" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-md">
+                            <h4 class="text-xl font-bold font-space text-white">Jane Doe</h4>
+                            <p class="text-[#00E0FF] font-medium">Lead Developer</p>
+                            <p class="text-[#A0A0A0] text-sm mt-2">Expert in React and Node.js, Jane is the architect behind our most complex web applications.</p>
+                        </div>
+
+                        <div class="page-el bg-slate-800 p-6 rounded-lg shadow-lg text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:shadow-[#8B5CF6]/20">
+                            <img src="https://via.placeholder.com/150" alt="Team Member" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-md">
+                            <h4 class="text-xl font-bold font-space text-white">John Smith</h4>
+                            <p class="text-[#8B5CF6] font-medium">Digital Marketing Head</p>
+                            <p class="text-[#A0A0A0] text-sm mt-2">A data-driven strategist, John ensures every campaign delivers measurable results and maximum ROI.</p>
+                        </div>
+
+                        <div class="page-el bg-slate-800 p-6 rounded-lg shadow-lg text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:shadow-[#00E0FF]/20">
+                            <img src="https://via.placeholder.com/150" alt="Team Member" class="w-32 h-32 rounded-full mx-auto mb-4 shadow-md">
+                            <h4 class="text-xl font-bold font-space text-white">Emily White</h4>
+                            <p class="text-[#00E0FF] font-medium">Senior UI/UX Designer</p>
+                            <p class="text-[#A0A0A0] text-sm mt-2">With a keen eye for aesthetics, Emily creates intuitive and beautiful user experiences.</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            
+            <section id="contact-cta-team" class="bg-[#0F172A]">
+                <div class="container mx-auto px-4 py-20 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold font-space text-white">Want to work with us?</h2>
+                    <p class="text-lg text-[#A0A0A0] mt-4 mb-8">Let our team of experts help you achieve your digital goals.</p>
+                    <a href="#" class="cta-back-to-contact cta-btn inline-block font-bold py-3 px-8 rounded-lg text-lg">
+                        Get a Free Quote
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="pt-16 pb-8 text-[#A0A0A0]">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div class="footer-col">
+                    <h3 class="font-space text-white text-xl font-bold mb-4">Mini-Tech</h3>
+                    <p class="text-sm leading-relaxed mb-4">Providing affordable digital solutions for startups, colleges, and businesses since 2025.</p>
+                    <div class="flex space-x-3 social-icons-container">
+                        <a href="https://www.facebook.com/share/p/14KSxT5De7h/" class="social-icon">
+                            <i data-feather="facebook" class="text-white w-5 h-5"></i>
+                        </a>
+                        <a href="https://www.instagram.com/minitechofficial?igsh=MTBycGFqN3hyZGRhdA==" class="social-icon">
+                            <i data-feather="instagram" class="text-white w-5 h-5"></i>
+                        </a>
+                        <a href="http://www.linkedin.com/in/" class="social-icon">
+                            <i data-feather="linkedin" class="text-white w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3 class="font-space text-white text-xl font-bold mb-4">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" id="footer-dm-link" class="footer-link">Digital Marketing</a></li>
+                        <li><a href="#" id="footer-web-link" class="footer-link">Web Development</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 class="font-space text-white text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#hero" class="footer-link">Home</a></li>
+                        <li><a href="#about" class="footer-link">About</a></li>
+                        <li><a href="#services" class="footer-link">Services</a></li>
+                        <li><a href="#" id="footer-team-link" class="footer-link">Our Team</a></li>
+                        <li><a href="#contact" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 class="font-space text-white text-xl font-bold mb-4">Contact Info</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start">
+                            <i data-feather="mail" class="w-4 h-4 mr-3 mt-1 text-[#00E0FF]"></i>
+                            <span>contact@minitech.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="phone" class="w-4 h-4 mr-3 mt-1 text-[#00E0FF]"></i>
+                            <span>+91 7977668088</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="map-pin" class="w-4 h-4 mr-3 mt-1 text-[#00E0FF]"></i>
+                            <span>India</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom border-t border-slate-700 pt-8 text-center text-sm">
+                <p>&copy; 2025 MiniTech. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <a href="#hero" id="scroll-to-top-btn" class="fixed bottom-8 right-8 cta-btn p-3 rounded-full shadow-lg z-30 transform scale-0 transition-transform duration-300 ease-in-out hover:scale-110 animate-pulse-fab">
+        <i data-feather="arrow-up" class="w-6 h-6"></i>
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Page View Switching Logic ---
+            const mainContent = document.getElementById('main-content');
+            const dmPage = document.getElementById('digital-marketing-page');
+            const webDevPage = document.getElementById('web-development-page');
+            const teamPage = document.getElementById('team-page'); 
+            const allPages = [dmPage, webDevPage, teamPage]; 
+
+            const dmLink = document.getElementById('digital-marketing-link');
+            const webDevLink = document.getElementById('web-development-link');
+
+            const navDmLink = document.getElementById('nav-dm-link');
+            const navWebLink = document.getElementById('nav-web-link');
+            const navTeamLink = document.getElementById('nav-team-link'); 
+
+            const mobileNavDmLink = document.getElementById('mobile-nav-dm-link');
+            const mobileNavWebLink = document.getElementById('mobile-nav-web-link');
+            const mobileNavTeamLink = document.getElementById('mobile-nav-team-link'); 
+
+            const footerDmLink = document.getElementById('footer-dm-link');
+            const footerWebLink = document.getElementById('footer-web-link');
+            const footerTeamLink = document.getElementById('footer-team-link'); 
+            
+            const homeLink = document.getElementById('home-link');
+            const mobileHomeLink = document.getElementById('mobile-home-link');
+            const backToMainBtns = document.querySelectorAll('.back-to-main-btn');
+            const backToContactBtns = document.querySelectorAll('.cta-back-to-contact');
+            const scrollToTopBtn = document.getElementById('scroll-to-top-btn');
+
+            function hideAllPages() {
+                mainContent.classList.add('hidden');
+                allPages.forEach(page => page.classList.add('hidden'));
+            }
+
+            function showPage(pageToShow, animationClass) {
+                hideAllPages();
+                pageToShow.classList.remove('hidden');
+                window.scrollTo(0, 0);
+                
+                feather.replace(); // Refresh icons
+
+                if (animationClass) {
+                    gsap.from(`#${pageToShow.id} .page-el`, {
+                        y: 50,
+                        opacity: 0,
+                        duration: 0.6,
+                        stagger: 0.1,
+                        ease: "power3.out"
+                    });
+                }
+            }
+            
+            function showMainPage() {
+                hideAllPages();
+                mainContent.classList.remove('hidden');
+                window.scrollTo(0, 0);
+                feather.replace();
+            }
+
+            // Initial Icon Load
+            feather.replace();
+
+            // Service Card Links
+            if (dmLink) dmLink.addEventListener('click', () => showPage(dmPage, 'page-el'));
+            if (webDevLink) webDevLink.addEventListener('click', () => showPage(webDevPage, 'page-el'));
+            
+            // Navbar Links
+            if (navDmLink) navDmLink.addEventListener('click', (e) => { e.preventDefault(); showPage(dmPage, 'page-el'); });
+            if (navWebLink) navWebLink.addEventListener('click', (e) => { e.preventDefault(); showPage(webDevPage, 'page-el'); });
+            if (navTeamLink) navTeamLink.addEventListener('click', (e) => { e.preventDefault(); showPage(teamPage, 'page-el'); }); 
+
+            // Footer Service Links
+            if (footerDmLink) footerDmLink.addEventListener('click', (e) => { e.preventDefault(); showPage(dmPage, 'page-el'); });
+            if (footerWebLink) footerWebLink.addEventListener('click', (e) => { e.preventDefault(); showPage(webDevPage, 'page-el'); });
+            if (footerTeamLink) footerTeamLink.addEventListener('click', (e) => { e.preventDefault(); showPage(teamPage, 'page-el'); }); 
+
+            // Home link
+            if (homeLink) homeLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showMainPage();
+            });
+            if (mobileHomeLink) mobileHomeLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeMobileMenu();
+                showMainPage();
+            });
+
+            // Back buttons on service pages
+            backToMainBtns.forEach(btn => btn.addEventListener('click', showMainPage));
+            
+            // "Get a Free Quote" / CTA to Contact on service pages
+            backToContactBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showMainPage();
+                    setTimeout(() => {
+                        const contactSection = document.getElementById('contact');
+                        if (contactSection) {
+                            contactSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }, 100);
+                });
+            });
+
+            // --- GSAP Animations ---
+            gsap.registerPlugin(ScrollTrigger);
+            
+            const heroTimeline = gsap.timeline({ defaults: { duration: 0.8, ease: 'power3.out' } });
+            heroTimeline.from('.hero-el', { opacity: 0, x: -50, stagger: 0.2, delay: 0.3 });
+            
+            document.querySelectorAll('.section-title').forEach(title => {
+                gsap.from(title, {
+                    scrollTrigger: {
+                        trigger: title,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power3.out"
+                });
+            });
+
+            // --- UPDATED Service Card Animation ---
+            gsap.from(".service-card", {
+                scrollTrigger: {
+                    trigger: "#services",
+                    start: "top 80%", // Start when top of section is 80% from top of viewport
+                    toggleActions: "play none none none",
+                },
+                y: 100,             // Start 100px down
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,       // Stagger each card
+                ease: "power3.out" // Smooth easing
+            });
+
+            // --- NEW "UNIQUE" ANIMATION FOR SERVICE CARD CONTENTS ---
+            const serviceCards = document.querySelectorAll('.service-card');
+            
+            serviceCards.forEach(card => {
+                gsap.from(card.querySelectorAll('.service-card-el'), {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%", // Start when the *card* is in view
+                        toggleActions: "play none none none"
+                    },
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.6,
+                    stagger: 0.15, // Stagger the icon, then title, then text...
+                    ease: "power3.out",
+                    delay: 0.3 // Wait for the card to slide in a bit first
+                });
+            });
+            // --- END OF NEW SERVICE ANIMATION ---
+
+            // Animation for About section
+            gsap.from(".about-el", {
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top 75%",
+                    toggleActions: "play none none none",
+                },
+                y: 60,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+            
+            gsap.from(".form-el", {
+                scrollTrigger: {
+                    trigger: ".contact-form-container",
+                    start: "top 80%",
+                    toggleActions: "play none none none",
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "power3.out"
+            });
+            
+            // --- GSAP Horizontal Scroll Section Animation ---
+            const track = document.querySelector('.scroll-track');
+            const pinContainer = document.querySelector('.pin-container'); 
+            
+            if (track && pinContainer) {
+                let horizontalScroll = gsap.to(track, {
+                    x: () => -(track.scrollWidth - pinContainer.offsetWidth) + "px", 
+                    ease: "none", 
+                    scrollTrigger: {
+                        trigger: pinContainer, 
+                        pin: true,     
+                        scrub: 1,    
+                        end: () => "+=" + (track.scrollWidth - pinContainer.offsetWidth), 
+                        markers: false, 
+                        invalidateOnRefresh: true 
+                    }
+                });
+                
+                // --- NEW ANIMATIONS FOR HORIZONTAL PANELS ---
+                
+                // Panel 1: "Why Choose Us" Title
+                gsap.from("#horizontal-scroll .scroll-panel:first-child h2", {
+                    scrollTrigger: {
+                        trigger: "#horizontal-scroll .scroll-panel:first-child",
+                        containerAnimation: horizontalScroll,
+                        start: "center center", 
+                        toggleActions: "play none none reverse",
+                    },
+                    scale: 0.5,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "elastic.out(1, 0.5)" // Bouncy effect
+                });
+
+                // --- NEW: Animate the pulse container to fade in ---
+                gsap.from("#horizontal-scroll .scroll-panel:first-child .pulse-container", {
+                    scrollTrigger: {
+                        trigger: "#horizontal-scroll .scroll-panel:first-child",
+                        containerAnimation: horizontalScroll,
+                        start: "center center", 
+                        toggleActions: "play none none reverse",
+                    },
+                    opacity: 0,
+                    duration: 1, // Match the text animation
+                    ease: "power2.inOut"
+                });
+
+
+                // Panel 2: Feature Cards (Cards 1-2)
+                gsap.from("#horizontal-scroll .scroll-panel:nth-child(2) .feature-card", {
+                    scrollTrigger: {
+                        trigger: "#horizontal-scroll .scroll-panel:nth-child(2)",
+                        containerAnimation: horizontalScroll,
+                        start: "left 80%", 
+                        toggleActions: "play none none reverse",
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.6,
+                    stagger: 0.1,
+                    ease: "power3.out"
+                });
+
+                // Panel 3: Feature Cards (Cards 3-4)
+                gsap.from("#horizontal-scroll .scroll-panel:nth-child(3) .feature-card", {
+                    scrollTrigger: {
+                        trigger: "#horizontal-scroll .scroll-panel:nth-child(3)",
+                        containerAnimation: horizontalScroll,
+                        start: "left 80%", 
+                        toggleActions: "play none none reverse",
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.6,
+                    stagger: 0.1,
+                    ease: "power3.out"
+                });
+
+                // Panel 4: Feature Cards (Cards 5-6)
+                gsap.from("#horizontal-scroll .scroll-panel:nth-child(4) .feature-card", {
+                    scrollTrigger: {
+                        trigger: "#horizontal-scroll .scroll-panel:nth-child(4)",
+                        containerAnimation: horizontalScroll,
+                        start: "left 80%", 
+                        toggleActions: "play none none reverse",
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.6,
+                    stagger: 0.1,
+                    ease: "power3.out"
+                });
+                
+                ScrollTrigger.addEventListener("refreshInit", () => horizontalScroll.scrollTrigger.refresh());
+            }
+
+            // --- Scroll to Top Button Logic ---
+            if (scrollToTopBtn) {
+                gsap.to(scrollToTopBtn, {
+                    scrollTrigger: {
+                        trigger: "#services", 
+                        start: "top center",
+                        endTrigger: "body", // Explicitly use body
+                        end: "bottom bottom", // Until bottom of body hits bottom of viewport
+                        toggleClass: {targets: scrollToTopBtn, className: "scale-100"} 
+                    }
+                });
+            }
+
+            // --- TERA NAYA HEADER SCROLL EFFECT ---
+            const header = document.getElementById('main-header');
+            if (header) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                });
+            }
+
+            // --- Mobile Menu Logic ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+            function openMobileMenu() {
+                if (mobileMenu) mobileMenu.classList.remove('translate-x-full');
+                if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            }
+
+            function closeMobileMenu() {
+                if (mobileMenu) mobileMenu.classList.add('translate-x-full');
+                if (mobileMenuOverlay) mobileMenuOverlay.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+
+            if (mobileMenuButton) mobileMenuButton.addEventListener('click', openMobileMenu);
+            if (mobileMenuCloseButton) mobileMenuCloseButton.addEventListener('click', closeMobileMenu);
+            if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+            
+            // Handle Mobile Nav Clicks to Service Pages
+            if (mobileNavDmLink) mobileNavDmLink.addEventListener('click', (e) => { e.preventDefault(); closeMobileMenu(); showPage(dmPage, 'page-el'); });
+            if (mobileNavWebLink) mobileNavWebLink.addEventListener('click', (e) => { e.preventDefault(); closeMobileMenu(); showPage(webDevPage, 'page-el'); });
+            if (mobileNavTeamLink) mobileNavTeamLink.addEventListener('click', (e) => { e.preventDefault(); closeMobileMenu(); showPage(teamPage, 'page-el'); }); 
+            
+            // --- Smooth Scrolling for all other Anchor Links ---
+            const scrollLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
+
+            scrollLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    const isServicePageLink = this.id.startsWith('mobile-nav-') || this.id.startsWith('nav-') || this.id.startsWith('footer-');
+
+                    if (isServicePageLink) {
+                        return; // Let the dedicated service page handlers work
+                    }
+                    
+                    e.preventDefault();
+                    
+                    // =================================== -->
+                    const targetElement = document.querySelector(targetId); // <--- DOT HATA DIYA
+                    
+                    if (!targetElement) return;
+
+                    const isMainContentHidden = mainContent && mainContent.classList.contains('hidden');
+                    
+                    if (isMainContentHidden) {
+                        showMainPage();
+                        setTimeout(() => {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }, 150);
+                    } else {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                    
+                    if (this.closest('#mobile-menu')) {
+                        closeMobileMenu();
+                    }
+                });
+            });
+
+            // --- Form Submission to WhatsApp ---
+            const contactForm = document.getElementById('contact-form');
+            const formMessage = document.getElementById('form-message');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const name = contactForm.querySelector('input[name="name"]').value;
+                    const email = contactForm.querySelector('input[name="email"]').value;
+                    const phone = contactForm.querySelector('input[name="phone"]').value;
+                    const service = contactForm.querySelector('select[name="service"]').value;
+                    const message = contactForm.querySelector('textarea[name="message"]').value;
+                    
+                    const whatsappMessage = `New Contact Form Submission:%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Phone:* ${phone}%0A*Service Interest:* ${service}%0A*Message:* ${message}`;
+                    
+                    window.open(`https://wa.me/917977668088?text=${whatsappMessage}`, '_blank');
+                    
+                    if (formMessage) {
+                        formMessage.textContent = "Thank you! Your message has been sent successfully.";
+                    }
+                    contactForm.reset();
+                    setTimeout(() => {
+                        if (formMessage) {
+                            formMessage.textContent = "";
+                        }
+                    }, 5000);
+                });
+            }
+            
+        });
+    </script>
+</body>
+</html>
